@@ -1,0 +1,36 @@
+cpp_library (
+    name = "cpproxy_core",
+    preprocessor_flags = [ "-Ipronto/cpproxy/cfg",
+                           "-Ipronto/cpproxy/http",
+                           "-Ipronto/cpproxy/core",
+                           "-Ipronto/lib/event",
+                           "-Ipronto/lib/nst_cpt",
+                           "-Ipronto/lib/nst_cfg",
+                           "-Ipronto/lib/core"
+                          ],
+    srcs =  [ 'nst_cpproxy_cycle.c']
+)
+
+cpp_binary (
+  name = "cpproxy",
+  preprocessor_flags = [ "-Ipronto/cpproxy/cfg",
+                           "-Ipronto/cpproxy/http",
+                           "-Ipronto/cpproxy/core",
+                           "-Ipronto/lib/event",
+                           "-Ipronto/lib/nst_cpt",
+                           "-Ipronto/lib/nst_cfg",
+                           "-Ipronto/lib/core"
+                          ],
+
+  srcs = [ 'cpproxy.c' ],
+  deps=[ ':cpproxy_core',
+        '@/pronto/cpproxy/http',
+        '@/pronto/cpproxy/cfg',
+        '@/pronto/cpproxy/http',
+        '@/pronto/lib/event',
+        '@/pronto/lib/nst_cfg',
+        '@/pronto/lib/nst_cpt',
+        '@/pronto/lib/core', 
+       ],
+  system_deps = ['expat'],
+)

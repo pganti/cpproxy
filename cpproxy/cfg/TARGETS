@@ -1,0 +1,27 @@
+cpp_library (
+    name = "cfg",
+    preprocessor_flags = [ "-Ipronto/cpproxy/cfg", 
+                           "-Ipronto/cpproxy/http",
+                           "-Ipronto/lib/event",
+                           "-Ipronto/lib/nst_cpt",
+                           "-Ipronto/lib/nst_cfg",
+                           "-Ipronto/lib/core" 
+                          ],
+    srcs =  [
+              'nst_cfg_log.c',
+               'nst_cfg_log_fac.c',
+	             'nst_cpproxy_cfg_version.c',
+               'nst_cpproxy_cfg_box.c',
+               'nst_cpproxy_cfg_local_dc.c',
+               'nst_cpproxy_cfg_local_dc_box.c',
+               'nst_cpproxy_cfg_local_proc.c',
+               'nst_cpproxy_cfg_remote_dc.c',
+               'nst_cpproxy_cfg_remote_dc_box.c',
+               'nst_cpproxy_cfg_remote_proc.c',
+               'nst_cpproxy_cfg_svc.c',
+               'nst_cpproxy_cfg_listen.c',
+               'nst_cpproxy_cfg_domain.c',
+               'nst_cpproxy_cfg_application.c',
+               'nst_cpproxy_cfg.c'
+              ],
+)

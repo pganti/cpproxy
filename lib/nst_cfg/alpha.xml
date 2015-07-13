@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<application>
+  <!-- application name has to be unit across the whole Pronto network -->
+  <name>alpha</name>
+
+  <!-- Optinal NAT map for the original server 
+       <nat-map>
+         <public-ip type='ipv4'>192.168.33.1</public-ip>
+         <private-ip type='ipv4'>172.16.0.1</private-ip>
+       </nat-map>
+       <nat-map>
+         <public-ip type='ipv4'>192.168.32.2</public-ip>
+         <private-ip type='ipv4'>172.16.0.2</private-ip>
+       </nat-map>
+     -->
+
+  <!-- we do not support hostname for now
+  <origin-server>
+    <name>os@pek</name>
+    <hostname>os-beta-test.pronto.com.cn</hostname>
+    <cluster>pek-alpha</cluster>
+    <monitor>
+      <test>
+        <url>https://beta.test.pronto.com/100k.html</url>
+        <expect>200</expect>
+      </test>
+    </monitor>
+  </origin-server>
+  -->
+
+  <origin-server>
+    <name>os1@sjc</name>
+    <ip type='ipv4'>192.168.168.1</ip>
+    <cluster>pek-alpha</cluster>
+    <monitor>
+      <test>
+        <url>https://beta.test.pronto.com/100k.html</url>
+        <expect>200</expect>
+      </test>
+    </monitor>
+  </origin-server>
+
+  <origin-server>
+    <name>os2@sjc</name>
+    <ip type='ipv4'>192.168.168.2</ip>
+    <cluster>sjc-eqx</cluster>
+    <cluster>sjc-lvlt</cluster>
+    <monitor>
+      <test>
+        <url>https://beta.test.pronto.com/100k.html</url>
+        <expect>200</expect>
+      </test>
+    </monitor>
+  </origin-server>
+
+  <domain>
+    <name>alpha.test.pronto.com</name>
+    <alias>.alpha.test.pronto.com</alias>
+    <alias>myalpha.test.pronto.com</alias>
+
+    <service>alpha.test.pronto.com</service>
+
+    <next-hop-tree>
+      <!-- no cache for tunneling -->
+
+      <selection>score</selection>
+
+      <!-- this node is only used for DNS server -->
+      <node>
+        <!-- TODO: explain how DNS should work -->
+        <type>dns</type>
+      </node>
+
+      <node>
+	<type>spc</type>
+	<cluster>pek-alpha</cluster>
+      </node>
+
+      <node>
+        <selection>first</selection>
+        <node>
+          <type>spc</type>
+          <cluster>sjc-eqx</cluster>
+        </node>
+
+        <node>
+          <type>spc</type>
+          <cluster>sjc-lvlt</cluster>
+        </node>
+      </node>
+
+      <node>
+	<type>origin-server</type>
+	<origin-server-name>os@pek</origin-server-name>
+      </node>
+
+      <node>
+        <type>origin-server</type>
+        <origin-server-name>os1@sjc</origin-server-name>
+      </node>
+
+    </next-hop-tree>
+  </domain>
+
+</application>

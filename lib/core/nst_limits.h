@@ -1,0 +1,28 @@
+#ifndef _NST_LIMITS_H
+#define _NST_LIMITS_H
+
+/* The following string buffer size INCLUDES '\0' terminator */
+#define NST_MAX_CFG_NAME_ELT_BUF_SIZE 64
+#define NST_MAX_DIR_NAME_BUF_SIZE 256
+#define NST_MAX_HOSTNAME_BUF_SIZE 256
+#define NST_MAX_SYSID_BUF_SIZE NST_MAX_CFG_NAME_ELT_BUF_SIZE
+#define NST_MAX_DOMAIN_NAME_BUF_SIZE NST_MAX_CFG_NAME_ELT_BUF_SIZE
+/* +4 for ".xml". -1 to elimiate the '\0' double count */
+#define NST_MAX_CFG_FILENAME_BUF_SIZE (NST_MAX_DIR_NAME_BUF_SIZE + NST_MAX_CFG_NAME_ELT_BUF_SIZE + 4 - 1)
+#define NST_MAX_FILENAME_BUF_SIZE NST_MAX_CFG_FILENAME_BUF_SIZE
+#define NST_MAX_IP_STR_BUF_SIZE (sizeof("255.255.255.255"))
+#define NST_MAX_IP_PORT_STR_BUF_SIZE (sizeof("255.255.255.255:65535"))
+#define NST_MAX_PORT_STR_BUF_SIZE (sizeof("65535"))
+#define NST_MAX_CHROOT_NAME (4096)
+
+#define NST_MAX_PATH_LEN          (1024)
+#define NST_MAX_PROC_ARGS_LEN     (2048)
+
+#define NST_MAX_PROC_NAME         (16)
+#define NST_MAX_BOX_NAME          (64)
+
+#if 0
+#define NST_MAX_SYS_ID_LEN (NST_MAX_PROC_NAME + NST_MAX_BOX_NAME + NST_MAX_HOSTNAME_BUF_SIZE + 2)
+#define NST_SYSID_LEN NST_MAX_SYS_ID_LEN
+#endif
+#endif

@@ -1,0 +1,10 @@
+#ifndef _NST_HTTP_TCP_EXT_H_
+#define _NST_HTTP_TCP_EXT_H_
+
+#define NST_HTTP_TCP_EXT_PASSIVE_END_USER   1
+#define NST_HTTP_TCP_EXT_ACTIVE_TP          2
+#define NST_HTTP_TCP_EXT_PASSIVE_TP         3
+#define NST_HTTP_TCP_EXT_ACTIVE_ORIGIN      4
+#define NST_HTTP_TCP_EXT_ACTIVE_CACHE       5
+
+#endif

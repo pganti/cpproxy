@@ -1,0 +1,15 @@
+cpp_library (
+    name = "nst_cpt",
+    preprocessor_flags = [ "-Ipronto/lib/core" ],
+    srcs =  [
+               'nst_cpt.c',
+                'nst_cpt_request.c',
+                'nst_cpt_node.c',
+                'nst_cpt_internal_node.c',
+                'nst_cpt_spc_node.c',
+                'nst_cpt_osite_node.c',
+                'nst_cpt_osrv_node.c',                
+                'nst_cpt_eval.c',
+                'nst_cpt_walk.c',
+             ],
+)

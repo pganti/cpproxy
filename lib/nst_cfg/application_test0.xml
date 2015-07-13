@@ -1,0 +1,68 @@
+<application>
+  <!-- application name has to be unit across the whole Pronto network -->
+  <name>alpha</name>
+
+  <origin-site>
+    <name>osite@sjc</name>
+    <ref-cluster>sjc-eqx</ref-cluster>
+    <ref-cluster>sjc-lvlt</ref-cluster>
+
+    <origin-server>
+      <name>osrv1</name>
+      <ip type='ipv4'>192.168.168.1</ip>
+      <score>400</score>
+    </origin-server>
+
+    <origin-server>
+      <name>osrv2</name>
+      <hostname>alpha.test.pronto.com</hostname>
+      <score>1000</score>
+    </origin-server>
+  </origin-site>
+
+  <domain>
+    <name>alpha.test.pronto.com</name>
+    <alias>.alpha.test.pronto.com</alias>
+    <alias>myalpha.test.pronto.com</alias>
+
+    <service>alpha.test.pronto.com</service>
+
+    <monitor>
+      <proto>http</proto>
+      <url>/100k.html</url>
+      <expect>200</expect>
+      <interval-s>47</interval-s>
+    </monitor>
+    
+    <next-hop-tree>
+
+      <node>
+        <type>spc</type>
+        <ref-cluster>sjc-pek</ref-cluster>
+        <score>321</score>
+      </node>
+
+      <node>
+        <type>origin-site</type>
+        <ref-origin-site>osite@sjc</ref-origin-site>
+        <score>123</score>
+      </node>
+
+      <node>
+        <selection>first</selection>
+        <node>
+          <type>spc</type>
+          <ref-cluster>sjc-eqx</ref-cluster>
+          <score>150</score>
+        </node>
+
+        <node>
+          <type>spc</type>
+          <ref-cluster>sjc-lvlt</ref-cluster>
+          <score>120</score>
+        </node>
+      </node>
+      
+    </next-hop-tree>
+  </domain>
+</application>

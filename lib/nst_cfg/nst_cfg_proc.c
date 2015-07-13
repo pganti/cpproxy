@@ -1,0 +1,51 @@
+#include "nst_cfg_proc.h"
+
+#include <nst_cfg_tag_action.h>
+#include <nst_cfg_common.h>
+
+#include <nst_enum_type_helpers.h>
+#include <nst_errno.h>
+
+static const char *nst_cfg_proc_type_str[] = {
+    [NST_CFG_PROC_TYPE_UNKNOWN] = "unknown",
+    [NST_CFG_PROC_TYPE_PROXY]   = "proxy",
+    [NST_CFG_PROC_TYPE_CACHE]   = "cache",
+    [NST_CFG_PROC_TYPE_LOG  ]   = "log",
+};
+
+const char *
+nst_cfg_proc_type_to_str(nst_cfg_proc_type_e type)
+{
+    return nst_enum_type_to_str(nst_cfg_proc_type_str,
+                                NST_CFG_PROC_TYPE_UNKNOWN,
+                                _NUM_NST_CFG_PROC_TYPE,
+                                NST_CFG_PROC_TYPE_UNKNOWN,
+                                type);
+}
+
+nst_cfg_proc_type_e
+nst_cfg_proc_type_from_str(const char *str)
+{
+    return nst_enum_type_from_str(nst_cfg_proc_type_str,
+                                  NST_CFG_PROC_TYPE_UNKNOWN,
+                                  _NUM_NST_CFG_PROC_TYPE,
+                                  NST_CFG_PROC_TYPE_UNKNOWN,
+                                  str);
+}
+
+nst_status_e
+nst_cfg_tag_action_set_proc_type(void *cfg_obj,
+                                 const nst_cfg_tag_action_t *action,
+                                 nst_expat_stack_frame_t *current,
+                                 const char *value, size_t value_len)
+{
+    nst_cfg_proc_type_e *proc_type = (nst_cfg_proc_type_e *)((char *)(cfg_obj)) + action->offset0;
+    *proc_type = nst_cfg_proc_type_from_str(value);
+
+    if(*proc_type == NST_CFG_PROC_TYPE_UNKNOWN) {
+        errno = EPROTONOSUPPORT;
+        return NST_ERROR;
+    } else {
+        return NST_OK;
+    }
+}
